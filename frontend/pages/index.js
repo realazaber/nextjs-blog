@@ -1,31 +1,54 @@
-import AllPosts from "../components/Posts/AllPosts";
-import StrapiClient from "../lib/strapi-client";
+import React from 'react'
+import { gql } from "@apollo/client"
 
-const connection = new StrapiClient();
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client"
+
+
 
 export async function getStaticProps() {
-  const allPosts = connection.fetchData('blogposts');
+
+  const connection = new ApolloClient({
+    uri: process.env.NEXT_PUBLIC_STRAPI_GRAPQLURL,
+    cache: new InMemoryCache()
+  });
+
+  const { data } = await connection.query({
+    query: gql`
+    query {
+      blogposts {
+        data {
+          attributes {
+            title,
+            content,
+            slug,
+            publishedAt,
+            thumbnail {
+              data {
+                attributes {
+                  url
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    `
+  });
+
   return {
-    props: {
-      postsList: await allPosts
-    },
+    props: data,
     revalidate: 10
   }
 }
 
-function home(data) {
+function Home(data) {
 
-  const allPosts = data.postsList.data;
-  
- // console.log(allPosts);
+  console.log(data);
 
   return (
-    <div>      
-      <AllPosts posts={allPosts}/>
-      
-
-    </div>
+    <div>home</div>
   )
 }
 
-export default home
+export default Home

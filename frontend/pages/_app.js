@@ -4,6 +4,7 @@ import Footer from '../components/Footer'
 function MyApp({ Component, pageProps }) {
   return (
     <div>
+      
       <Head>
         <title>Azaber blog</title>
         <meta name="description" content="My personal blog" />
@@ -12,6 +13,7 @@ function MyApp({ Component, pageProps }) {
       
       <Component {...pageProps} />
       <Footer />
+      
     </div>
   ) 
   
