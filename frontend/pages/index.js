@@ -1,9 +1,7 @@
 import React from 'react'
 import { gql } from "@apollo/client"
 
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client"
-
-
+import { ApolloClient, InMemoryCache } from "@apollo/client"
 
 export async function getStaticProps() {
 
@@ -14,7 +12,7 @@ export async function getStaticProps() {
 
   const { data } = await connection.query({
     query: gql`
-    query {
+    query allPosts {
       blogposts {
         data {
           attributes {

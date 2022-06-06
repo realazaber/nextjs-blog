@@ -13,6 +13,7 @@ export async function getStaticProps() {
   }
 }
 
+
 function restVer(data) {
 
   const allPosts = data.postsList.data;
